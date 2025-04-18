@@ -1,5 +1,5 @@
 # Wordify
-Just a simple word encryption program writed in shell script and python.
+Just a simple word encryption program for arch based linux writed in python.
 
 # Supported encryption type
 - Caesar Cipher
