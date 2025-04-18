@@ -12,6 +12,13 @@ def banner():
     )
 
 
+# Check wl-copy
+if not shutil.which("wl-copy"):
+    print("wl-copy is not installed\nInstalling wl-copy...")
+    time.sleep(0.5)
+    os.system("sudo pacman -S wl-clipboard --noconfirm --needed")
+    os.system("clear")
+
 # Check figlet
 if shutil.which("figlet"):
     banner()
@@ -53,6 +60,8 @@ def encrypt(text, type):
 
 encryption_type = int(input("Enter encryption type (Number): "))
 plain_text = input("Enter text to encrypt: ")
-encrypted = encrypt(plain_text, encryption_type)
+encrypted_text = encrypt(plain_text, encryption_type)
 
-print("Encrypted text:", encrypted)
+os.system(f"wl-copy {encrypted_text}")
+
+print("\nEncrypted text:", encrypted_text)
