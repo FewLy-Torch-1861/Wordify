@@ -8,7 +8,7 @@ WELCOME_MESSAGE = "Wordify"
 def banner():
     os.system(f"figlet -f slant {WELCOME_MESSAGE}")
     print(
-        "Just a simple word encryption program for arch based linux writed in python.\n\nAll supported encryption type\n - caesar_cipher (Caesar Cipher)\n"
+        "Just a simple word encryption program for arch based linux writed in python.\n\nAll supported encryption type\n 1 - caesar_cipher\n 2 - reverse\n"
     )
 
 
@@ -37,13 +37,21 @@ def caesar_cipher(text):
     return result
 
 
+def reverse(text):
+    result = text[::-1]
+    return result
+
+
 def encrypt(text, type):
-    if type == "caesar_cipher":
+    if type == 1:
         result = caesar_cipher(text)
+        return result
+    elif type == 2:
+        result = reverse(text)
         return result
 
 
-encryption_type = input("Enter encryption type: ")
+encryption_type = int(input("Enter encryption type (Number): "))
 plain_text = input("Enter text to encrypt: ")
 encrypted = encrypt(plain_text, encryption_type)
 
