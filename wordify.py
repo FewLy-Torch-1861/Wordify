@@ -20,7 +20,8 @@ else:
     banner()
 
 
-def encrypt(text, shift):
+def caesar_cipher(text):
+    shift = int(input("Enter shift amount (number): "))
     result = ""
     for char in text:
         if char.isalpha():
@@ -33,8 +34,18 @@ def encrypt(text, shift):
     return result
 
 
-text = input("Enter text to encrypt: ")
-shift_amount = int(input("Enter shift amount (number): "))
-encrypted = encrypt(text, shift_amount)
+def encrypt(text, type):
+    if type == "caesar_cipher":
+        result = caesar_cipher(text)
+        return result
+
+
+print("""
+All supported encryption type
+ - caesar_cipher (Caesar Cipher)
+""")
+encryption_type = input("Enter encryption type: ")
+plain_text = input("Enter text to encrypt: ")
+encrypted = encrypt(plain_text, encryption_type)
 
 print("Encrypted text:", encrypted)
