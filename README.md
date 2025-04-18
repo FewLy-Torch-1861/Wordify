@@ -1,2 +1,2 @@
 # Wordify
-Just a simple word encryption program writed in python.
+Just a simple word encryption program writed in shell script and python.
