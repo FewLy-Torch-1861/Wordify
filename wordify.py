@@ -7,6 +7,9 @@ WELCOME_MESSAGE = "Wordify"
 
 def banner():
     os.system(f"figlet -f slant {WELCOME_MESSAGE}")
+    print(
+        "Just a simple word encryption program for arch based linux writed in python.\n\nAll supported encryption type\n - caesar_cipher (Caesar Cipher)\n"
+    )
 
 
 # Check figlet
@@ -40,10 +43,6 @@ def encrypt(text, type):
         return result
 
 
-print("""
-All supported encryption type
- - caesar_cipher (Caesar Cipher)
-""")
 encryption_type = input("Enter encryption type: ")
 plain_text = input("Enter text to encrypt: ")
 encrypted = encrypt(plain_text, encryption_type)
