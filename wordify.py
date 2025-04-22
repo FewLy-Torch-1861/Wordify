@@ -42,38 +42,21 @@ def caesar_cipher(text):
             # Shift character
             result += chr((ord(char) - base + shift) % 26 + base)
         else:
-            result += char  # Encrypt only character
+            result += char  # Not encrypt non character
     return result
-
-
-def reverse(text):
-    result = text[::-1]
-    return result
-
-
-def encode_base64(text):
-    return base64.b64encode(text.encode("utf-8")).decode("utf-8")
-
-
-def encode_base32(text):
-    return base64.b32encode(text.encode("utf-8")).decode("utf-8")
-
-
-def encode_base16(text):
-    return base64.b16encode(text.encode("utf-8")).decode("utf-8")
 
 
 def encrypt(text, type):
     if type == 1:
         return caesar_cipher(text)
     elif type == 2:
-        return reverse(text)
+        return text[::-1]
     elif type == 3:
-        return encode_base64(text)
+        return base64.b64encode(text.encode("utf-8")).decode("utf-8")
     elif type == 4:
-        return encode_base32(text)
+        return base64.b32encode(text.encode("utf-8")).decode("utf-8")
     elif type == 5:
-        return encode_base16(text)
+        return base64.b16encode(text.encode("utf-8")).decode("utf-8")
     else:
         return "Nope"
 
@@ -84,4 +67,4 @@ encrypted_text = encrypt(plain_text, encryption_type)
 
 os.system(f"wl-copy {encrypted_text}")
 
-print("\nEncrypted text:", encrypted_text)
+print("\nEncrypted text:", encrypted_text, "\n")
