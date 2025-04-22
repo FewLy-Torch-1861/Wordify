@@ -1,6 +1,7 @@
 import os
 import shutil
 import time
+import base64
 
 WELCOME_MESSAGE = "Wordify"
 
@@ -9,7 +10,7 @@ def banner():
     os.system("clear")
     os.system(f"figlet -f slant {WELCOME_MESSAGE}")
     print(
-        "Just a simple word encryption program for arch based linux writed in python.\n\nAll supported encryption type\n 1 - caesar_cipher\n 2 - reverse\n"
+        "Just a simple word encryption program for arch based linux writed in python.\n\nAll supported encryption type\n 1 - caesar_cipher\n 2 - reverse\n 3 - base64\n 4 - base32\n 5 - base16\n"
     )
 
 
@@ -50,13 +51,29 @@ def reverse(text):
     return result
 
 
+def encode_base64(text):
+    return base64.b64encode(text.encode('utf-8')).decode('utf-8')
+
+
+def encode_base32(text):
+    return base64.b32encode(text.encode('utf-8')).decode('utf-8')
+
+
+def encode_base16(text):
+    return base64.b16encode(text.encode('utf-8')).decode('utf-8')
+
+
 def encrypt(text, type):
     if type == 1:
-        result = caesar_cipher(text)
-        return result
+        return caesar_cipher(text)
     elif type == 2:
-        result = reverse(text)
-        return result
+        return reverse(text)
+    elif type == 3:
+        return encode_base64(text)
+    elif type == 4:
+        return encode_base32(text)
+    elif type == 5:
+        return encode_base16(text)
     else:
         return "Nope"
 
