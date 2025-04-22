@@ -10,61 +10,69 @@ def banner():
     os.system("clear")
     os.system(f"figlet -f slant {WELCOME_MESSAGE}")
     print(
-        "Just a simple word encryption program for arch based linux writed in python.\n\nAll supported encryption type\n 1 - caesar_cipher\n 2 - reverse\n 3 - base64\n 4 - base32\n 5 - base16\n"
+        "Just a simple word encryption tool for Arch-based Linux written in Python.\n\n"
+        "Supported encryption types:\n"
+        " 1 - Caesar Cipher\n"
+        " 2 - Reverse\n"
+        " 3 - Base64\n"
+        " 4 - Base32\n"
+        " 5 - Base16\n"
     )
 
 
-# Check wl-copy
-if not shutil.which("wl-copy"):
-    print("wl-copy is not installed\nInstalling wl-copy...")
-    time.sleep(0.5)
-    os.system("sudo pacman -S wl-clipboard --noconfirm --needed")
-    os.system("clear")
+def check_dependency(cmd, pkg_name):
+    if not shutil.which(cmd):
+        print(f"{cmd} is not installed. Installing {pkg_name}...")
+        time.sleep(0.5)
+        os.system(f"sudo pacman -S {pkg_name} --noconfirm --needed")
+        os.system("clear")
 
-# Check figlet
-if shutil.which("figlet"):
-    banner()
-else:
-    print("Figlet is not installed\nInstalling Figlet...")
-    time.sleep(0.5)
-    os.system("sudo pacman -S figlet --noconfirm --needed")
-    os.system("clear")
-    banner()
+
+# Dependency checks
+check_dependency("wl-copy", "wl-clipboard")
+check_dependency("figlet", "figlet")
+
+banner()
 
 
 def caesar_cipher(text):
-    shift = int(input("Enter shift amount (number): "))
+    try:
+        shift = int(input("Enter shift amount (number): "))
+    except ValueError:
+        print("Invalid number. Using default shift = 3")
+        shift = 3
+
     result = ""
     for char in text:
         if char.isalpha():
-            # Check case
             base = ord("A") if char.isupper() else ord("a")
-            # Shift character
             result += chr((ord(char) - base + shift) % 26 + base)
         else:
-            result += char  # Not encrypt non character
+            result += char
     return result
 
 
-def encrypt(text, type):
-    if type == 1:
+def encrypt(text, enc_type):
+    if enc_type == 1:
         return caesar_cipher(text)
-    elif type == 2:
+    elif enc_type == 2:
         return text[::-1]
-    elif type == 3:
-        return base64.b64encode(text.encode("utf-8")).decode("utf-8")
-    elif type == 4:
-        return base64.b32encode(text.encode("utf-8")).decode("utf-8")
-    elif type == 5:
-        return base64.b16encode(text.encode("utf-8")).decode("utf-8")
+    elif enc_type == 3:
+        return base64.b64encode(text.encode()).decode()
+    elif enc_type == 4:
+        return base64.b32encode(text.encode()).decode()
+    elif enc_type == 5:
+        return base64.b16encode(text.encode()).decode()
     else:
-        return "Nope"
+        return "Invalid encryption type."
 
 
-encryption_type = int(input("Enter encryption type (Number): "))
-plain_text = input("Enter text to encrypt: ")
-encrypted_text = encrypt(plain_text, encryption_type)
+try:
+    encryption_type = int(input("Enter encryption type (1-5): "))
+    plain_text = input("Enter text to encrypt: ")
+    encrypted_text = encrypt(plain_text, encryption_type)
 
-os.system(f"wl-copy {encrypted_text}")
-
-print("\nEncrypted text:", encrypted_text, "\n")
+    os.system(f"wl-copy <<< \"{encrypted_text}\"")
+    print("\nEncrypted text copied to clipboard:\n", encrypted_text)
+except Exception as e:
+    print(f"An error occurred: {e}")
