@@ -37,12 +37,12 @@ def caesar_cipher(text):
     result = ""
     for char in text:
         if char.isalpha():
-            # เช็คว่าเป็นตัวพิมพ์เล็กหรือใหญ่
+            # Check case
             base = ord("A") if char.isupper() else ord("a")
-            # เลื่อนตัวอักษร
+            # Shift character
             result += chr((ord(char) - base + shift) % 26 + base)
         else:
-            result += char  # ไม่ใช่ตัวอักษรก็ไม่ต้องเข้ารหัส
+            result += char  # Encrypt only character
     return result
 
 
@@ -52,15 +52,15 @@ def reverse(text):
 
 
 def encode_base64(text):
-    return base64.b64encode(text.encode('utf-8')).decode('utf-8')
+    return base64.b64encode(text.encode("utf-8")).decode("utf-8")
 
 
 def encode_base32(text):
-    return base64.b32encode(text.encode('utf-8')).decode('utf-8')
+    return base64.b32encode(text.encode("utf-8")).decode("utf-8")
 
 
 def encode_base16(text):
-    return base64.b16encode(text.encode('utf-8')).decode('utf-8')
+    return base64.b16encode(text.encode("utf-8")).decode("utf-8")
 
 
 def encrypt(text, type):
