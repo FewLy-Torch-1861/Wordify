@@ -20,7 +20,7 @@ ENCODE_TYPES = {
     3: "Base16",
 }
 
-HASH_TYPES = {1: "SHA-256"}
+HASH_TYPES = {1: "SHA256"}
 
 
 def banner():

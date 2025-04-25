@@ -1,12 +1,17 @@
 # Wordify
-Just a simple word encryption program for Arch-based linux writed in python.
+Just a text encode/encryption/hash tool for Arch-based Linux written in Python.
 
-# Supported encryption type
+## Supported encryption type
 - Caesar Cipher
 - Reverse
+
+## Supported encoding type
 - Base64
 - Base32
 - Base16
+
+## Supported hash type
+- SHA256
 
 # Installing
 ```sh
