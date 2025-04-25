@@ -20,6 +20,7 @@ def banner():
         " 3 - Base64\n"
         " 4 - Base32\n"
         " 5 - Base16\n"
+        " q - Exit\n"
     )
 
 
@@ -72,9 +73,12 @@ def encrypt(text, enc_type):
 
 def main():
     try:
-        encryption_type = int(input("Enter encryption type (1-5): "))
+        enc_type = input("Enter encryption type (1-5, q): ")
+        if enc_type == "q":
+            exit()
+        enc_type = int(enc_type)
         plain_text = input("Enter text to encrypt: ")
-        encrypted_text = encrypt(plain_text, encryption_type)
+        encrypted_text = encrypt(plain_text, enc_type)
 
         os.system(f'wl-copy <<< "{encrypted_text}"')
         print("\nEncrypted text copied to clipboard:", encrypted_text)
