@@ -1,0 +1,29 @@
+#!/bin/bash
+
+echo -e "Wordify Installer\n 1 - Install\n 2 - Uninstall"
+read -p "Choose what to do: " option
+
+case "$option" in
+    1)
+        echo "Installing..."
+        if [[ -f "wordify.py" ]]; then
+            sudo ln -sf "$(pwd)/wordify.py" /usr/local/bin/wordify
+            sudo chmod +x "$(pwd)/wordify.py"
+            echo "Wordify installed at: $(which wordify)"
+        else
+            echo "wordify.py not found in current directory!"
+        fi
+        ;;
+    2)
+        if command -v wordify &> /dev/null; then
+            echo "Uninstalling..."
+            sudo rm -f "$(command -v wordify)"
+            echo "Wordify has been deleted!"
+        else
+            echo "Wordify is not installed!"
+        fi
+        ;;
+    *)
+        echo "Invalid option!"
+        ;;
+esac
