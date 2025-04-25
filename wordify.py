@@ -4,34 +4,51 @@ import os
 import shutil
 import argparse
 import base64
-import sys
+import hashlib
 
 WELCOME_MESSAGE = "Wordify"
 
 ENCRYPTION_TYPES = {
     1: "Caesar Cipher",
     2: "Reverse",
-    3: "Base64",
-    4: "Base32",
-    5: "Base16",
 }
+
+ENCODE_TYPES = {
+    1: "Base64",
+    2: "Base32",
+    3: "Base16",
+}
+
+HASH_TYPES = {1: "SHA-256"}
 
 
 def banner():
     os.system("clear")
     os.system(f"figlet -f slant {WELCOME_MESSAGE}")
     print(
-        "Just a simple word encryption tool for Arch-based Linux written in Python.\n\n"
-        "Supported encryption types:"
+        "Just a text encode\\encryption\\hash tool for Arch-based Linux written in Python.\n"
     )
+    print("1 - Supported encryption types:")
     for k, v in ENCRYPTION_TYPES.items():
-        print(f" {k} - {v}")
-    print(f" q - Exit\n")
+        print(f"  {k} - {v}")
+    print("\n2 - Supported encode types:")
+    for k, v in ENCODE_TYPES.items():
+        print(f"  {k} - {v}")
+    print("\n3 - Supported hash types:")
+    for k, v in HASH_TYPES.items():
+        print(f"  {k} - {v}")
+    print(f"\nq - Exit\n")
 
 
-def list_encryption_types():
+def list_supported():
     print("Supported encryption types:")
     for k, v in ENCRYPTION_TYPES.items():
+        print(f" {k} - {v}")
+    print("\nSupported encode types:")
+    for k, v in ENCODE_TYPES.items():
+        print(f" {k} - {v}")
+    print("\nSupported hash types:")
+    for k, v in HASH_TYPES.items():
         print(f" {k} - {v}")
 
 
@@ -53,75 +70,105 @@ def caesar_cipher(text, shift=3):
     return result
 
 
-def encrypt(text, enc_type, caesar_shift=None):
+def encrypt(enc_type, text, caesar_shift=None):
     if enc_type == 1:
-        return caesar_cipher(text, caesar_shift or 3)
+        result = caesar_cipher(text, caesar_shift)
+        return result
     elif enc_type == 2:
-        return text[::-1]
-    elif enc_type == 3:
-        return base64.b64encode(text.encode()).decode()
-    elif enc_type == 4:
-        return base64.b32encode(text.encode()).decode()
-    elif enc_type == 5:
-        return base64.b16encode(text.encode()).decode()
-    else:
-        return "Invalid encryption type."
+        result = text[::-1]
+        return result
+
+
+def encode(encode_type, text):
+    if encode_type == 1:
+        result = base64.b64encode(text.encode("UTF-8")).decode()
+        return result
+    elif encode_type == 2:
+        result = base64.b32encode(text.encode("UTF-8")).decode()
+        return result
+    elif encode_type == 3:
+        result = base64.b16encode(text.encode("UTF-8")).decode()
+        return result
+
+
+def hash_(hash_type, text):
+    if hash_type == 1:
+        result = hashlib.sha256(text.encode("UTF-8")).hexdigest()
+        return result
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Wordify - simple encryption tool")
-    parser.add_argument("-t", "--type", type=int, help="Encryption type (1-5)")
-    parser.add_argument(
-        "-s", "--shift", type=int, help="Caesar cipher shift (for type 1 only)"
+    parser = argparse.ArgumentParser(
+        description="Wordify - simple encode\\encryption\\hash tool"
     )
+    parser.add_argument("-l", "--list", action="store_true", help="List supported")
     parser.add_argument(
-        "-l", "--list", action="store_true", help="List encryption types"
+        "-i", "--interactive", action="store_true", help="Interactive mode"
+    )
+    parser.add_argument("--encrypt", type=int, help="Encryption type (1-2)")
+    parser.add_argument("--encode", type=int, help="Encoding type (1-3)")
+    parser.add_argument("--hash", type=int, help="Hash type (1)")
+    parser.add_argument(
+        "-s", "--shift", type=int, help="Caesar cipher shift (for encryption type 1 only)"
     )
     parser.add_argument("text", nargs="?", help="Text to encrypt")
 
     args = parser.parse_args()
 
     if args.list:
-        list_encryption_types()
+        list_supported()
         return
 
-    if args.type and args.text:
-        try:
-            result = encrypt(args.text, args.type, args.shift)
-            print(result)
-            return
-        except Exception as e:
-            print(f"Error: {e}")
-            return
+    if args.encrypt and args.text:
+        result = encrypt(int(args.encrypt), str(args.text), int(args.shift))
+        print(result)
+        return
 
-    # Interactive mode
-    try:
+    if args.encode and args.text:
+        result = encode(int(args.encode), str(args.text))
+        print(result)
+        return
+
+    if args.hash and args.text:
+        result = hash_(int(args.hash), str(args.text))
+        print(result)
+        return
+
+    if args.interactive:
         check_dependency("wl-copy", "wl-clipboard")
         check_dependency("figlet", "figlet")
 
         banner()
 
-        enc_type = input("Enter encryption type (1-5, q): ")
-        if enc_type == "q":
+        mode = input("\nWhat do you want to do (1-3, q): ")
+
+        if mode == "q":
             exit()
 
-        enc_type = int(enc_type)
-        plain_text = input("Enter text to encrypt: ")
-        caesar_shift = None
+        mode = int(mode)
 
-        if enc_type == 1:
-            try:
-                caesar_shift = int(input("Enter shift amount (number): "))
-            except ValueError:
-                print("Invalid number. Using default shift = 3")
-                caesar_shift = 3
+        if mode == 1:
+            enc_type = int(input("Encryption type (1-2): "))
+            plain_text = str(input("Text to encrypt: "))
 
-        encrypted_text = encrypt(plain_text, enc_type, caesar_shift)
-
-        os.system(f'wl-copy <<< "{encrypted_text}"')
-        print("\nEncrypted text copied to clipboard:", encrypted_text)
-    except Exception as e:
-        print(f"\nAn error occurred: {e}")
+            if enc_type == 1:
+                shift = int(input("Shift (default 3): "))
+                result = encrypt(enc_type, plain_text, shift)
+                print(f"{result}")
+            else:
+                result = encrypt(enc_type, plain_text)
+                print(f"{result}")
+        elif mode == 2:
+            encode_type = int(input("Encoding type (1-3): "))
+            plain_text = str(input("Text to encode: "))
+            result = encode(encode_type, plain_text)
+            print(f"{result}")
+        elif mode == 3:
+            hash_type = int(input("Hash type (1): "))
+            plain_text = str(input("Text to hash: "))
+            result = hash_(hash_type, plain_text)
+            print(f"{result}")
+        return
 
 
 if __name__ == "__main__":
