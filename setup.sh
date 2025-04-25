@@ -13,7 +13,7 @@ case "$option" in
             if command -v python3 &> /dev/null; then
                 echo "python3 is already installed, Great!"
             else
-                echo -e "python3 is not install\n installing python3"
+                echo -e "python3 is not install\n installing python3..."
                 sudo pacman -S python3 --needed --noconfirm
             fi
 
