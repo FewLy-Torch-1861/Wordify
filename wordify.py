@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+
+
 import os
 import shutil
 import time
@@ -67,12 +70,17 @@ def encrypt(text, enc_type):
         return "Invalid encryption type."
 
 
-try:
-    encryption_type = int(input("Enter encryption type (1-5): "))
-    plain_text = input("Enter text to encrypt: ")
-    encrypted_text = encrypt(plain_text, encryption_type)
+def main():
+    try:
+        encryption_type = int(input("Enter encryption type (1-5): "))
+        plain_text = input("Enter text to encrypt: ")
+        encrypted_text = encrypt(plain_text, encryption_type)
 
-    os.system(f'wl-copy <<< "{encrypted_text}"')
-    print("\nEncrypted text copied to clipboard:\n", encrypted_text)
-except Exception as e:
-    print(f"An error occurred: {e}")
+        os.system(f'wl-copy <<< "{encrypted_text}"')
+        print("\nEncrypted text copied to clipboard:\n", encrypted_text)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+
+if __name__ == "__main__":
+    main()
