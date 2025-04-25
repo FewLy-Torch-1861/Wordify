@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "Wordify Installer\n 1 - Install\n 2 - Uninstall"
+echo -e "Wordify Installer\n 1 - Install\n 2 - Uninstall\n 3 - Cancel"
 read -p "Choose what to do: " option
 
 case "$option" in
@@ -23,7 +23,11 @@ case "$option" in
             echo "Wordify is not installed!"
         fi
         ;;
+    3)
+        exit 0
+        ;;
     *)
         echo "Invalid option!"
+        exit 1
         ;;
 esac
