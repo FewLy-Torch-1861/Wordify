@@ -22,14 +22,11 @@ def banner():
     os.system(f"figlet -f slant {WELCOME_MESSAGE}")
     print(
         "Just a simple word encryption tool for Arch-based Linux written in Python.\n\n"
-        "Supported encryption types:\n"
-        " 1 - Caesar Cipher\n"
-        " 2 - Reverse\n"
-        " 3 - Base64\n"
-        " 4 - Base32\n"
-        " 5 - Base16\n"
-        " q - Exit\n"
+        "Supported encryption types:"
     )
+    for k, v in ENCRYPTION_TYPES.items():
+        print(f" {k} - {v}")
+    print(f" q - Exit\n")
 
 
 def list_encryption_types():
@@ -107,9 +104,11 @@ def main():
         enc_type = input("Enter encryption type (1-5, q): ")
         if enc_type == "q":
             exit()
+
         enc_type = int(enc_type)
         plain_text = input("Enter text to encrypt: ")
         caesar_shift = None
+
         if enc_type == 1:
             try:
                 caesar_shift = int(input("Enter shift amount (number): "))
