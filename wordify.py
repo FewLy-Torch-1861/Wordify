@@ -171,7 +171,7 @@ def main():
         type=int,
         help="Caesar cipher shift (for encryption type 1 only)",
     )
-    parser.add_argument("text", nargs="?", help="Text to encrypt")
+    parser.add_argument("text", nargs="?", help="Text to use")
 
     args = parser.parse_args()
 
