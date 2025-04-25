@@ -72,7 +72,7 @@ try:
     plain_text = input("Enter text to encrypt: ")
     encrypted_text = encrypt(plain_text, encryption_type)
 
-    os.system(f"wl-copy <<< \"{encrypted_text}\"")
+    os.system(f'wl-copy <<< "{encrypted_text}"')
     print("\nEncrypted text copied to clipboard:\n", encrypted_text)
 except Exception as e:
     print(f"An error occurred: {e}")
