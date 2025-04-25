@@ -9,6 +9,14 @@ case "$option" in
         if [[ -f "wordify.py" ]]; then
             sudo ln -sf "$(pwd)/wordify.py" /usr/local/bin/wordify
             sudo chmod +x "$(pwd)/wordify.py"
+
+            if command -v python3 &> /dev/null; then
+                echo "python3 is already installed, Great!"
+            else
+                echo -e "python3 is not install\n installing python3"
+                sudo pacman -S python3 --needed --noconfirm
+            fi
+
             echo "Wordify installed at: $(which wordify)"
         else
             echo "wordify.py not found in current directory!"
