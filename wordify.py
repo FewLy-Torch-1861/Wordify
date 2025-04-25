@@ -80,7 +80,7 @@ def encrypt(enc_type, text, caesar_shift=None):
         else:
             raise ValueError("Unsupported encryption type")
     except Exception as e:
-        return f"Encryption error: {e}"
+        return f"\nEncryption error: {e}"
 
 
 def encode(encode_type, text):
@@ -95,7 +95,7 @@ def encode(encode_type, text):
         else:
             raise ValueError("Unsupported encoding type")
     except Exception as e:
-        return f"Encoding error: {e}"
+        return f"\nEncoding error: {e}"
 
 
 def hash_(hash_type, text):
@@ -105,7 +105,7 @@ def hash_(hash_type, text):
         else:
             raise ValueError("Unsupported hash type")
     except Exception as e:
-        return f"Hashing error: {e}"
+        return f"\nHashing error: {e}"
 
 
 def interactive_mode():
@@ -114,7 +114,7 @@ def interactive_mode():
         check_dependency("figlet", "figlet")
 
         banner()
-        mode = input("\nWhat do you want to do (1-3, q): ").strip().lower()
+        mode = input("What do you want to do (1-3, q): ").strip().lower()
 
         if mode == "q":
             sys.exit(0)
@@ -129,23 +129,29 @@ def interactive_mode():
                 shift_input = input("Shift (default 3): ").strip()
                 if shift_input:
                     shift = int(shift_input)
-            print(encrypt(enc_type, plain_text, shift))
+            result = encrypt(enc_type, plain_text, shift)
+            os.system(f'wl-copy <<< "{result}"')
+            print(f"Encrypted: {result}")
 
         elif mode == 2:
             encode_type = int(input("Encoding type (1-3): "))
             plain_text = input("Text to encode: ")
-            print(encode(encode_type, plain_text))
+            result = encode(encode_type, plain_text)
+            os.system(f'wl-copy <<< "{result}"')
+            print(f"Encoded: {result}")
 
         elif mode == 3:
             hash_type = int(input("Hash type (1): "))
             plain_text = input("Text to hash: ")
-            print(hash_(hash_type, plain_text))
+            result = hash_(hash_type, plain_text)
+            os.system(f'wl-copy <<< "{result}"')
+            print(f"Hashed: {result}")
 
         else:
             print("Invalid mode selected.")
 
     except Exception as e:
-        print(f"Interactive mode error: {e}")
+        print(f"\nInteractive mode error: {e}")
 
 
 def main():
@@ -193,7 +199,7 @@ def main():
         parser.print_help()
 
     except Exception as e:
-        print(f"Main error: {e}")
+        print(f"\nMain error: {e}")
 
 
 if __name__ == "__main__":
