@@ -164,7 +164,7 @@ def main():
     )
     parser.add_argument("--encrypt", type=int, help="Encryption type (1-2)")
     parser.add_argument("--encode", type=int, help="Encoding type (1-3)")
-    parser.add_argument("--hash", type=int, help="Hash type (1)")
+    parser.add_argument("-h", "--hash", type=int, help="Hash type (1)")
     parser.add_argument(
         "-s",
         "--shift",
