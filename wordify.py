@@ -163,7 +163,7 @@ def interactive_mode():
         check_dependency("figlet", "figlet")
 
         banner()
-        mode = input("What do you want to do (1-3, q): ").strip().lower()
+        mode = input("What do you want to do (1-4, q): ").strip().lower()
 
         if mode == "q":
             sys.exit(0)
@@ -223,6 +223,7 @@ def main():
     )
     parser.add_argument("-e", "--encrypt", type=int, help="Encryption type (1-2)")
     parser.add_argument("-E", "--encode", type=int, help="Encoding type (1-4)")
+    parser.add_argument("-d", "--decode", type=int, help="Decoding type (1-4)")
     parser.add_argument("-H", "--hash", type=int, help="Hash type (1-4)")
     parser.add_argument(
         "-s",
