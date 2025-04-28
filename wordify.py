@@ -18,9 +18,22 @@ ENCODE_TYPES = {
     1: "Base64",
     2: "Base32",
     3: "Base16",
+    4: "Hex (Not Done)"
 }
 
-HASH_TYPES = {1: "SHA256"}
+DECODE_TYPES = {
+    1: "Base64 (Not Done)",
+    2: "Base32 (Not Done)",
+    3: "Base16 (Not Done)",
+    4: "Hex (Not Done)"
+}
+
+HASH_TYPES = {
+    1: "SHA1",
+    2: "SHA256",
+    3: "SHA512",
+    4: "MD5",
+}
 
 
 def banner():
@@ -35,7 +48,10 @@ def banner():
     print("\n2 - Supported encode types:")
     for k, v in ENCODE_TYPES.items():
         print(f"  {k} - {v}")
-    print("\n3 - Supported hash types:")
+    print("\n3 - Supported decode types:")
+    for k, v in DECODE_TYPES.items():
+        print(f"  {k} - {v}")
+    print("\n4 - Supported hash types:")
     for k, v in HASH_TYPES.items():
         print(f"  {k} - {v}")
     print("\nq - Exit\n")
@@ -47,6 +63,9 @@ def list_supported():
         print(f" {k} - {v}")
     print("\nSupported encode types:")
     for k, v in ENCODE_TYPES.items():
+        print(f" {k} - {v}")
+    print("\nSupported decode types:")
+    for k, v in DECODE_TYPES.items():
         print(f" {k} - {v}")
     print("\nSupported hash types:")
     for k, v in HASH_TYPES.items():
