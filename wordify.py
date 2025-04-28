@@ -14,25 +14,20 @@ ENCRYPTION_TYPES = {
     2: "Reverse",
 }
 
-ENCODE_TYPES = {
-    1: "Base64",
-    2: "Base32",
-    3: "Base16",
-    4: "Hex (Not Done)"
-}
+ENCODE_TYPES = {1: "Base64", 2: "Base32", 3: "Base16", 4: "Hex (Not Done)"}
 
 DECODE_TYPES = {
     1: "Base64 (Not Done)",
     2: "Base32 (Not Done)",
     3: "Base16 (Not Done)",
-    4: "Hex (Not Done)"
+    4: "Hex (Not Done)",
 }
 
 HASH_TYPES = {
-    1: "SHA1",
+    1: "SHA1 (Not Done)",
     2: "SHA256",
-    3: "SHA512",
-    4: "MD5",
+    3: "SHA512 (Not Done)",
+    4: "MD5 (Not Done)",
 }
 
 
@@ -45,12 +40,15 @@ def banner():
     print("1 - Supported encryption types:")
     for k, v in ENCRYPTION_TYPES.items():
         print(f"  {k} - {v}")
+
     print("\n2 - Supported encode types:")
     for k, v in ENCODE_TYPES.items():
         print(f"  {k} - {v}")
+
     print("\n3 - Supported decode types:")
     for k, v in DECODE_TYPES.items():
         print(f"  {k} - {v}")
+
     print("\n4 - Supported hash types:")
     for k, v in HASH_TYPES.items():
         print(f"  {k} - {v}")
@@ -61,12 +59,15 @@ def list_supported():
     print("Supported encryption types:")
     for k, v in ENCRYPTION_TYPES.items():
         print(f" {k} - {v}")
+
     print("\nSupported encode types:")
     for k, v in ENCODE_TYPES.items():
         print(f" {k} - {v}")
+
     print("\nSupported decode types:")
     for k, v in DECODE_TYPES.items():
         print(f" {k} - {v}")
+
     print("\nSupported hash types:")
     for k, v in HASH_TYPES.items():
         print(f" {k} - {v}")
@@ -94,10 +95,13 @@ def encrypt(enc_type, text, caesar_shift=None):
     try:
         if enc_type == 1:
             return caesar_cipher(text, caesar_shift or 3)
+
         elif enc_type == 2:
             return text[::-1]
+
         else:
             raise ValueError("Unsupported encryption type")
+
     except Exception as e:
         return f"\nEncryption error: {e}"
 
@@ -107,22 +111,48 @@ def encode(encode_type, text):
         encoded_bytes = text.encode("UTF-8")
         if encode_type == 1:
             return base64.b64encode(encoded_bytes).decode()
+
         elif encode_type == 2:
             return base64.b32encode(encoded_bytes).decode()
+
         elif encode_type == 3:
             return base64.b16encode(encoded_bytes).decode()
+
+        elif encode_type == 4:
+            return "Not done!"
+
         else:
             raise ValueError("Unsupported encoding type")
+
     except Exception as e:
         return f"\nEncoding error: {e}"
+
+
+def decode(decode_type, text):
+    try:
+        return "Not done!"
+
+    except Exception as e:
+        return f"\nDecoding error: {e}"
 
 
 def hash_(hash_type, text):
     try:
         if hash_type == 1:
+            return "Not done!"
+
+        elif hash_type == 2:
             return hashlib.sha256(text.encode("UTF-8")).hexdigest()
+
+        elif hash_type == 3:
+            return "Not done!"
+
+        elif hash_type == 4:
+            return "Not done!"
+
         else:
             raise ValueError("Unsupported hash type")
+
     except Exception as e:
         return f"\nHashing error: {e}"
 
@@ -144,25 +174,35 @@ def interactive_mode():
             enc_type = int(input("Encryption type (1-2): "))
             plain_text = input("Text to encrypt: ")
             shift = 3
+
             if enc_type == 1:
                 shift_input = input("Shift (default 3): ").strip()
                 if shift_input:
                     shift = int(shift_input)
+
             result = encrypt(enc_type, plain_text, shift)
+
             os.system(f'wl-copy <<< "{result}"')
             print(f"Encrypted: {result}")
 
         elif mode == 2:
-            encode_type = int(input("Encoding type (1-3): "))
+            encode_type = int(input("Encoding type (1-4): "))
             plain_text = input("Text to encode: ")
+
             result = encode(encode_type, plain_text)
+
             os.system(f'wl-copy <<< "{result}"')
             print(f"Encoded: {result}")
 
         elif mode == 3:
-            hash_type = int(input("Hash type (1): "))
+            print("Not done!")
+
+        elif mode == 4:
+            hash_type = int(input("Hash type (1-4): "))
             plain_text = input("Text to hash: ")
+
             result = hash_(hash_type, plain_text)
+
             os.system(f'wl-copy <<< "{result}"')
             print(f"Hashed: {result}")
 
@@ -181,9 +221,9 @@ def main():
     parser.add_argument(
         "-i", "--interactive", action="store_true", help="Interactive mode"
     )
-    parser.add_argument("--encrypt", type=int, help="Encryption type (1-2)")
-    parser.add_argument("--encode", type=int, help="Encoding type (1-3)")
-    parser.add_argument("-h", "--hash", type=int, help="Hash type (1)")
+    parser.add_argument("-e", "--encrypt", type=int, help="Encryption type (1-2)")
+    parser.add_argument("-E", "--encode", type=int, help="Encoding type (1-4)")
+    parser.add_argument("-H", "--hash", type=int, help="Hash type (1-4)")
     parser.add_argument(
         "-s",
         "--shift",
