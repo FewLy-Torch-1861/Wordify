@@ -24,7 +24,7 @@ Just a text encode/encryption/hash tool for Arch-based Linux written in Python.
 - SHA512 (not done)
 - MD5 (not done)
 
-### Export to file (not done)
+## Export to file (not done)
 - .txt
 
 # Installing
