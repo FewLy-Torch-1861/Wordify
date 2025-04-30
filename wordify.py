@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
-import os
-import shutil
 import argparse
 import base64
 import hashlib
+import os
+import shutil
 import sys
 
 WELCOME_MESSAGE = "Wordify"
