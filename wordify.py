@@ -8,26 +8,13 @@ import shutil
 
 WELCOME_MESSAGE = "Wordify"
 
-ENCRYPTION_TYPES = {
-    1: "Caesar Cipher",
-    2: "Reverse",
-}
+ENCRYPTION_TYPES = {1: "Caesar Cipher", 2: "Reverse"}
 
 ENCODE_TYPES = {1: "Base64", 2: "Base32", 3: "Base16", 4: "Hex"}
 
-DECODE_TYPES = {
-    1: "Base64",
-    2: "Base32",
-    3: "Base16",
-    4: "Hex",
-}
+DECODE_TYPES = {1: "Base64", 2: "Base32", 3: "Base16", 4: "Hex"}
 
-HASH_TYPES = {
-    1: "SHA1",
-    2: "SHA256",
-    3: "SHA512",
-    4: "MD5",
-}
+HASH_TYPES = {1: "SHA1", 2: "SHA256", 3: "SHA512", 4: "MD5"}
 
 
 def list_supported():
