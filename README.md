@@ -6,13 +6,7 @@ Just a text encode/encryption/hash tool for Arch-based Linux written in Python.
 - Caesar Cipher
 - Reverse
 
-## Encode
-- Base64
-- Base32
-- Base16
-- Hex
-
-## Decode
+## Encode/Decode
 - Base64
 - Base32
 - Base16
