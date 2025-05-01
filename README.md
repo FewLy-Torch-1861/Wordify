@@ -1,8 +1,6 @@
 # Wordify
 Just a text encode/encryption/hash tool for Arch-based Linux written in Python.
 
----
-
 # Features
 ## Encryption
 - Caesar Cipher
@@ -23,16 +21,12 @@ Just a text encode/encryption/hash tool for Arch-based Linux written in Python.
 ## Export to file (not done)
 - .txt
 
----
-
 # Installing
 ```sh
 git clone https://github.com/FewLy-Torch-1861/Wordify.git
 cd Wordify
 ./setup.sh
 ```
-
----
 
 #
 
