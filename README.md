@@ -10,13 +10,13 @@ Just a text encode/encryption/hash tool for Arch-based Linux written in Python.
 - Base64
 - Base32
 - Base16
-- Hex (not done)
+- Hex
 
 ## Decode
 - Base64
 - Base32
 - Base16
-- Hex (not done)
+- Hex
 
 ## Hash
 - SHA1

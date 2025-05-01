@@ -13,13 +13,13 @@ ENCRYPTION_TYPES = {
     2: "Reverse",
 }
 
-ENCODE_TYPES = {1: "Base64", 2: "Base32", 3: "Base16", 4: "Hex (Not Done)"}
+ENCODE_TYPES = {1: "Base64", 2: "Base32", 3: "Base16", 4: "Hex"}
 
 DECODE_TYPES = {
     1: "Base64",
     2: "Base32",
     3: "Base16",
-    4: "Hex (Not Done)",
+    4: "Hex",
 }
 
 HASH_TYPES = {
@@ -118,7 +118,7 @@ def encode(encode_type, text):
             return base64.b16encode(encoded_bytes).decode()
 
         elif encode_type == 4:
-            return "Not done!"
+            return encoded_bytes.hex()
 
         else:
             raise ValueError("Unsupported encoding type")
@@ -140,7 +140,7 @@ def decode(decode_type, text):
             return base64.b16decode(encoded_bytes).decode()
 
         elif decode_type == 4:
-            return "Not done!"
+            return bytes.fromhex(text).decode()
 
         else:
             raise ValueError("Unsupported decoding type")
