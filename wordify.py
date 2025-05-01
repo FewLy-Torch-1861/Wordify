@@ -5,7 +5,6 @@ import base64
 import hashlib
 import os
 import shutil
-import sys
 
 WELCOME_MESSAGE = "Wordify"
 
@@ -14,12 +13,7 @@ ENCRYPTION_TYPES = {
     2: "Reverse",
 }
 
-ENCODE_TYPES = {
-    1: "Base64",
-    2: "Base32",
-    3: "Base16",
-    4: "Hex (Not Done)"
-}
+ENCODE_TYPES = {1: "Base64", 2: "Base32", 3: "Base16", 4: "Hex (Not Done)"}
 
 DECODE_TYPES = {
     1: "Base64",
@@ -176,76 +170,11 @@ def hash_(hash_type, text):
         return f"\nHashing error: {e}"
 
 
-def interactive_mode():
-    try:
-        check_dependency("wl-copy", "wl-clipboard")
-        check_dependency("figlet", "figlet")
-
-        banner()
-        mode = input("What do you want to do (1-4, q): ").strip().lower()
-
-        if mode == "q":
-            sys.exit(0)
-
-        mode = int(mode)
-
-        if mode == 1:
-            enc_type = int(input("Encryption type (1-2): "))
-            plain_text = input("Text to encrypt: ")
-            shift = 3
-
-            if enc_type == 1:
-                shift_input = input("Shift (default 3): ").strip()
-                if shift_input:
-                    shift = int(shift_input)
-
-            result = encrypt(enc_type, plain_text, shift)
-
-            os.system(f'wl-copy <<< "{result}"')
-            print(f"Encrypted: {result}")
-
-        elif mode == 2:
-            encode_type = int(input("Encoding type (1-4): "))
-            plain_text = input("Text to encode: ")
-
-            result = encode(encode_type, plain_text)
-
-            os.system(f'wl-copy <<< "{result}"')
-            print(f"Encoded: {result}")
-
-        elif mode == 3:
-            decode_type = int(input("Decoding type (1-4): "))
-            plain_text = input("Text to decode: ")
-
-            result = decode(decode_type, plain_text)
-
-            os.system(f'wl-copy <<< "{result}"')
-            print(f"Decoded: {result}")
-
-        elif mode == 4:
-            hash_type = int(input("Hash type (1-4): "))
-            plain_text = input("Text to hash: ")
-
-            result = hash_(hash_type, plain_text)
-
-            os.system(f'wl-copy <<< "{result}"')
-            print(f"Hashed: {result}")
-
-        else:
-            print("Invalid mode selected.")
-
-    except Exception as e:
-        print(f"\nInteractive mode error: {e}")
-
-
 def main():
     parser = argparse.ArgumentParser(
         description="Wordify - simple encode/encryption/hash tool"
     )
     parser.add_argument("-l", "--list", action="store_true", help="List supported")
-    parser.add_argument(
-        "-i", "--interactive", action="store_true", help="Interactive mode"
-    )
     parser.add_argument("-e", "--encrypt", type=int, help="Encryption type (1-2)")
     parser.add_argument("-E", "--encode", type=int, help="Encoding type (1-4)")
     parser.add_argument("-d", "--decode", type=int, help="Decoding type (1-4)")
@@ -279,10 +208,6 @@ def main():
 
         if args.hash and args.text:
             print(hash_(args.hash, args.text))
-            return
-
-        if args.interactive:
-            interactive_mode()
             return
 
         parser.print_help()
