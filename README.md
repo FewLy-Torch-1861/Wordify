@@ -59,6 +59,32 @@ options:
   -s, --shift SHIFT     Caesar cipher shift (for encryption type 1 only)
 ```
 
+```
+$ wordify -l
+
+Supported encryption types:
+ 1 - Caesar Cipher
+ 2 - Reverse
+
+Supported encode types:
+ 1 - Base64
+ 2 - Base32
+ 3 - Base16
+ 4 - Hex
+
+Supported decode types:
+ 1 - Base64
+ 2 - Base32
+ 3 - Base16
+ 4 - Hex
+
+Supported hash types:
+ 1 - SHA1
+ 2 - SHA256
+ 3 - SHA512
+ 4 - MD5
+```
+
 ##
 
 *created on archlinux using neovim btw.*
