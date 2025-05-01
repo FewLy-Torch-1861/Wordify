@@ -1,5 +1,5 @@
 # Wordify
-Just a text encode/encryption/hash tool for Arch-based Linux written in Python.
+Just a text encode/encryption/hash tool for Linux written in Python.
 
 # Features
 ## Encryption
