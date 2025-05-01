@@ -23,10 +23,10 @@ DECODE_TYPES = {
 }
 
 HASH_TYPES = {
-    1: "SHA1 (Not Done)",
+    1: "SHA1",
     2: "SHA256",
-    3: "SHA512 (Not Done)",
-    4: "MD5 (Not Done)",
+    3: "SHA512",
+    4: "MD5",
 }
 
 
@@ -151,17 +151,18 @@ def decode(decode_type, text):
 
 def hash_(hash_type, text):
     try:
+        encoded_bytes = text.encode("UTF-8")
         if hash_type == 1:
-            return "Not done!"
+            return hashlib.sha1(encoded_bytes).hexdigest()
 
         elif hash_type == 2:
-            return hashlib.sha256(text.encode("UTF-8")).hexdigest()
+            return hashlib.sha256(encoded_bytes).hexdigest()
 
         elif hash_type == 3:
-            return "Not done!"
+            return hashlib.sha512(encoded_bytes).hexdigest()
 
         elif hash_type == 4:
-            return "Not done!"
+            return hashlib.md5(encoded_bytes).hexdigest()
 
         else:
             raise ValueError("Unsupported hash type")

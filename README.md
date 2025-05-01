@@ -19,10 +19,10 @@ Just a text encode/encryption/hash tool for Arch-based Linux written in Python.
 - Hex (not done)
 
 ## Hash
-- SHA1 (not done)
+- SHA1
 - SHA256
-- SHA512 (not done)
-- MD5 (not done)
+- SHA512
+- MD5
 
 ## Export to file (not done)
 - .txt
