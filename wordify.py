@@ -30,30 +30,6 @@ HASH_TYPES = {
 }
 
 
-def banner():
-    os.system("clear")
-    os.system(f"figlet -f slant {WELCOME_MESSAGE}")
-    print(
-        "Just a text encode/encryption/hash tool for Arch-based Linux written in Python.\n"
-    )
-    print("1 - Supported encryption types:")
-    for k, v in ENCRYPTION_TYPES.items():
-        print(f"  {k} - {v}")
-
-    print("\n2 - Supported encode types:")
-    for k, v in ENCODE_TYPES.items():
-        print(f"  {k} - {v}")
-
-    print("\n3 - Supported decode types:")
-    for k, v in DECODE_TYPES.items():
-        print(f"  {k} - {v}")
-
-    print("\n4 - Supported hash types:")
-    for k, v in HASH_TYPES.items():
-        print(f"  {k} - {v}")
-    print("\nq - Exit\n")
-
-
 def list_supported():
     print("Supported encryption types:")
     for k, v in ENCRYPTION_TYPES.items():
