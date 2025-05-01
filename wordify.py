@@ -3,13 +3,19 @@
 import argparse
 import base64
 import hashlib
-import os
-import shutil
 
 ENCRYPTION_TYPES = {1: "Caesar Cipher", 2: "Reverse"}
 ENCODE_TYPES = {1: "Base64", 2: "Base32", 3: "Base16", 4: "Hex"}
 DECODE_TYPES = {1: "Base64", 2: "Base32", 3: "Base16", 4: "Hex"}
 HASH_TYPES = {1: "SHA1", 2: "SHA256", 3: "SHA512", 4: "MD5"}
+
+
+def save_to_file(filename, data):
+    try:
+        with open(filename, "w", encoding="utf-8") as f:
+            f.write(data)
+    except Exception as e:
+        print(f"\nFile save error: {e}")
 
 
 def list_supported():
@@ -127,6 +133,9 @@ def main():
         description="Wordify - simple encode/encryption/hash tool"
     )
     parser.add_argument("-l", "--list", action="store_true", help="List supported")
+    parser.add_argument(
+        "-o", "--output", type=str, help="Output file to save the result"
+    )
     parser.add_argument("-e", "--encrypt", type=int, help="Encryption type (1-2)")
     parser.add_argument("-E", "--encode", type=int, help="Encoding type (1-4)")
     parser.add_argument("-d", "--decode", type=int, help="Decoding type (1-4)")
@@ -141,25 +150,38 @@ def main():
 
     args = parser.parse_args()
 
+    def final(result):
+        try:
+            print(result)
+            if args.output:
+                save_to_file(args.output, result)
+
+        except Exception as e:
+            return f"\nFinal error: {e}"
+
     try:
         if args.list:
             list_supported()
             return
 
         if args.encrypt and args.text:
-            print(encrypt(args.encrypt, args.text, args.shift))
+            result = encrypt(args.encrypt, args.text, args.shift)
+            final(result)
             return
 
         if args.encode and args.text:
-            print(encode(args.encode, args.text))
+            result = encode(args.encode, args.text)
+            final(result)
             return
 
         if args.decode and args.text:
-            print(decode(args.decode, args.text))
+            result = decode(args.decode, args.text)
+            final(result)
             return
 
         if args.hash and args.text:
-            print(hash_(args.hash, args.text))
+            result = hash_(args.hash, args.text)
+            final(result)
             return
 
         parser.print_help()

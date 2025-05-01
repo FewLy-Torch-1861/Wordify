@@ -18,8 +18,8 @@ Just a text encode/encryption/hash tool for Arch-based Linux written in Python.
 - SHA512
 - MD5
 
-## Export to file (not done)
-- .txt
+## Misc
+- Export to file
 
 # Installing
 ```sh
