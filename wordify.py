@@ -6,14 +6,9 @@ import hashlib
 import os
 import shutil
 
-WELCOME_MESSAGE = "Wordify"
-
 ENCRYPTION_TYPES = {1: "Caesar Cipher", 2: "Reverse"}
-
 ENCODE_TYPES = {1: "Base64", 2: "Base32", 3: "Base16", 4: "Hex"}
-
 DECODE_TYPES = {1: "Base64", 2: "Base32", 3: "Base16", 4: "Hex"}
-
 HASH_TYPES = {1: "SHA1", 2: "SHA256", 3: "SHA512", 4: "MD5"}
 
 
@@ -33,13 +28,6 @@ def list_supported():
     print("\nSupported hash types:")
     for k, v in HASH_TYPES.items():
         print(f" {k} - {v}")
-
-
-def check_dependency(cmd, pkg_name):
-    if not shutil.which(cmd):
-        print(f"{cmd} is not installed. Installing {pkg_name}...")
-        os.system(f"sudo pacman -S {pkg_name} --noconfirm --needed")
-        os.system("clear")
 
 
 def caesar_cipher(text, shift=3):
