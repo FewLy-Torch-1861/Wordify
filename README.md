@@ -12,11 +12,11 @@ Just a text encode/encryption/hash tool for Arch-based Linux written in Python.
 - Base16
 - Hex (not done)
 
-## Decode (not done)
+## Decode
 - Base64
 - Base32
 - Base16
-- Hex
+- Hex (not done)
 
 ## Hash
 - SHA1 (not done)

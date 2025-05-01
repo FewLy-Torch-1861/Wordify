@@ -14,12 +14,17 @@ ENCRYPTION_TYPES = {
     2: "Reverse",
 }
 
-ENCODE_TYPES = {1: "Base64", 2: "Base32", 3: "Base16", 4: "Hex (Not Done)"}
+ENCODE_TYPES = {
+    1: "Base64",
+    2: "Base32",
+    3: "Base16",
+    4: "Hex (Not Done)"
+}
 
 DECODE_TYPES = {
-    1: "Base64 (Not Done)",
-    2: "Base32 (Not Done)",
-    3: "Base16 (Not Done)",
+    1: "Base64",
+    2: "Base32",
+    3: "Base16",
     4: "Hex (Not Done)",
 }
 
@@ -130,7 +135,21 @@ def encode(encode_type, text):
 
 def decode(decode_type, text):
     try:
-        return "Not done!"
+        encoded_bytes = text.encode("UTF-8")
+        if decode_type == 1:
+            return base64.b64decode(encoded_bytes).decode()
+
+        elif decode_type == 2:
+            return base64.b32decode(encoded_bytes).decode()
+
+        elif decode_type == 3:
+            return base64.b16decode(encoded_bytes).decode()
+
+        elif decode_type == 4:
+            return "Not done!"
+
+        else:
+            raise ValueError("Unsupported decoding type")
 
     except Exception as e:
         return f"\nDecoding error: {e}"
@@ -195,7 +214,13 @@ def interactive_mode():
             print(f"Encoded: {result}")
 
         elif mode == 3:
-            print("Not done!")
+            decode_type = int(input("Decoding type (1-4): "))
+            plain_text = input("Text to decode: ")
+
+            result = decode(decode_type, plain_text)
+
+            os.system(f'wl-copy <<< "{result}"')
+            print(f"Decoded: {result}")
 
         elif mode == 4:
             hash_type = int(input("Hash type (1-4): "))
@@ -246,6 +271,10 @@ def main():
 
         if args.encode and args.text:
             print(encode(args.encode, args.text))
+            return
+
+        if args.decode and args.text:
+            print(decode(args.decode, args.text))
             return
 
         if args.hash and args.text:
