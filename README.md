@@ -28,7 +28,7 @@ Just a text encode/encryption/hash tool for Linux written in Python.
 - Export to file
 
 ## Installation
-see the wiki
+see the [wiki](https://github.com/FewLy-Torch-1861/Wordify/wiki/Installation)
 
 ## Usage
 
