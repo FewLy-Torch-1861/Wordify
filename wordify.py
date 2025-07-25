@@ -136,8 +136,8 @@ def main():
     parser.add_argument(
         "-o", "--output", type=str, help="Output file to save the result"
     )
-    parser.add_argument("-e", "--encrypt", type=int, help="Encryption type (1-2)")
-    parser.add_argument("-E", "--encode", type=int, help="Encoding type (1-4)")
+    parser.add_argument("-E", "--encrypt", type=int, help="Encryption type (1-2)")
+    parser.add_argument("-e", "--encode", type=int, help="Encoding type (1-4)")
     parser.add_argument("-d", "--decode", type=int, help="Decoding type (1-4)")
     parser.add_argument("-H", "--hash", type=int, help="Hash type (1-4)")
     parser.add_argument(
